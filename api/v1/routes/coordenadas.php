@@ -1,11 +1,11 @@
 <?php 
 
 
-$app->get('/getTalleres', function() {
+$app->get('/getCoordenadas', function() {
     $response = array();
     $db = new DbHandler();
 
-    $response = $db->select("taller", "*", array(), "*");
+    $response = $db->select("coordenada", "*", array(), "*");
     if ($response != NULL) {
         $response["status"] = "success";
         $response["message"] = "Información obtenida correctamente";
@@ -17,12 +17,12 @@ $app->get('/getTalleres', function() {
     }     
 });
 
-$app->get('/getTaller/:id', function($id){
+$app->get('/getCoordenada/:id', function($id){
 
     $response = array();
     $db = new DbHandler();
 
-    $response = $db->select("taller", "*", array("idTaller"=>$id), "*");
+    $response = $db->select("coordenada", "*", array("idcoordenada"=>$id), "*");
     if ($response != NULL) {
         $response["status"] = "success";
         $response["message"] = "Información obtenida correctamente";
@@ -34,39 +34,38 @@ $app->get('/getTaller/:id', function($id){
     }     
 });
 
-$app->post('/postTaller', function () use ($app) {
+$app->post('/postCoordenada', function () use ($app) {
 
     if (!$_SESSION['idUser']) 
-        exit;    
+        exit;
 
     $response = array();
     $r = json_decode($app->request->getBody());
-    $r->created_by = $_SESSION['idUser'];
-
+    
     $db = new DbHandler();
 
-    $tabble_nombre = "taller";
-    $column_nombres = array('nombre','direccion','descripcion','telefono','lat','lng','baja', 'created_by');
+    $tabble_nombre = "coordenada";
+    $column_nombres = array("lat", "lng", "created_at", "baja");
 
     $result = $db->insertIntoTable($r, $column_nombres, $tabble_nombre);
 
     if ($result != NULL) {
         $response["status"] = "success";
-        $response["message"] = "Taller agregado correctamente";
+        $response["message"] = "Coordenada agregada correctamente";
         echoResponse(200, $response);
     } else {
         $response["status"] = "error";
-        $response["message"] = "Ha ocurrido un error al tratar de agregar el taller";
+        $response["message"] = "Ha ocurrido un error al tratar de agregar la coordenada";
         echoResponse(201, $response);
     }    
 });
 
-$app->put('/putTaller/:id', function($id) use($app) {
+$app->put('/putCoordenada/:id', function($id) use($app) {
     $request = json_decode($app->request->getBody());
     $response = array();
     $db = new DbHandler();
 
-    $response = $db->put("taller", array("idTaller"=>$id), $request->data);
+    $response = $db->put("coordenada", array("idcoordenada"=>$id), $request->data);
     if ($response['data'] != NULL) {
         $response["status"] = "success";
         $response["message"] = "Información modificada correctamente";
@@ -78,11 +77,11 @@ $app->put('/putTaller/:id', function($id) use($app) {
     }
 });
 
-$app->delete('/deleteTaller/:id', function($id) {
+$app->delete('/deleteCoordenada/:id', function($id) {
     $response = array();
     $db = new DbHandler();
 
-    $response = $db->delete("taller", array("idTaller"=>$id));
+    $response = $db->deleteWhere("coordenada", array("idcoordenada"=>$id));
     if ($response['data'] != NULL) {
         $response["status"] = "success";
         $response["message"] = "Información eliminada correctamente";

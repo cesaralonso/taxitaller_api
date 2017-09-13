@@ -46,7 +46,10 @@ $app->post('/login', function() use ($app) {
         $response['user']['acceso'] = $acceso;
         $response['token'] = $jwt;
         $response['response_put'] = $db->put("user", array("iduser" => $user['iduser']), array('acceso' => $acceso, 'token' => $jwt, 'token_expire' => $token_expire));
-
+        
+        
+        $_SESSION['iduser'] = $user['iduser'];
+        
         // Guadar Token en Sesión
         $_SESSION['token'] = $jwt;
         $_SESSION['token_expire'] = $token_expire;

@@ -15,6 +15,19 @@ $user_id = NULL;
 require_once 'routes/authentication.php';
 require_once 'routes/imagenes.php';
 require_once 'routes/talleres.php';
+require_once 'routes/choferes.php';
+require_once 'routes/choques.php';
+require_once 'routes/coordenadas.php';
+require_once 'routes/liquidaciones.php';
+require_once 'routes/mecanicos.php';
+require_once 'routes/orden_vehiculo_talleres.php';
+require_once 'routes/permiso.php';
+require_once 'routes/propietarios.php';
+require_once 'routes/refacciones.php';
+require_once 'routes/roles.php';
+require_once 'routes/users.php';
+require_once 'routes/vehiculos.php';
+require_once 'routes/vehiculo_talleres.php';
 
 /**
  * Verifying required params posted or not

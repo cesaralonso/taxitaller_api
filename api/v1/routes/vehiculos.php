@@ -1,11 +1,11 @@
 <?php 
 
 
-$app->get('/getTalleres', function() {
+$app->get('/getVehiculos', function() {
     $response = array();
     $db = new DbHandler();
 
-    $response = $db->select("taller", "*", array(), "*");
+    $response = $db->select("vehiculo", "*", array(), "*");
     if ($response != NULL) {
         $response["status"] = "success";
         $response["message"] = "Información obtenida correctamente";
@@ -17,12 +17,12 @@ $app->get('/getTalleres', function() {
     }     
 });
 
-$app->get('/getTaller/:id', function($id){
+$app->get('/getVehiculo/:id', function($id){
 
     $response = array();
     $db = new DbHandler();
 
-    $response = $db->select("taller", "*", array("idTaller"=>$id), "*");
+    $response = $db->select("vehiculo", "*", array("idvehiculo"=>$id), "*");
     if ($response != NULL) {
         $response["status"] = "success";
         $response["message"] = "Información obtenida correctamente";
@@ -34,39 +34,39 @@ $app->get('/getTaller/:id', function($id){
     }     
 });
 
-$app->post('/postTaller', function () use ($app) {
-
-    if (!$_SESSION['idUser']) 
-        exit;    
-
-    $response = array();
-    $r = json_decode($app->request->getBody());
-    $r->created_by = $_SESSION['idUser'];
-
-    $db = new DbHandler();
-
-    $tabble_nombre = "taller";
-    $column_nombres = array('nombre','direccion','descripcion','telefono','lat','lng','baja', 'created_by');
-
-    $result = $db->insertIntoTable($r, $column_nombres, $tabble_nombre);
-
-    if ($result != NULL) {
-        $response["status"] = "success";
-        $response["message"] = "Taller agregado correctamente";
-        echoResponse(200, $response);
-    } else {
-        $response["status"] = "error";
-        $response["message"] = "Ha ocurrido un error al tratar de agregar el taller";
-        echoResponse(201, $response);
-    }    
+$app->post('/postVehiculo', function () use ($app) {
+    
+        if (!$_SESSION['idUser']) 
+            exit;    
+    
+        $response = array();
+        $r = json_decode($app->request->getBody());
+        $r->created_by = $_SESSION['idUser'];
+    
+        $db = new DbHandler();
+    
+        $tabble_nombre = "vehiculo";
+        $column_nombres = array("marca", "modelo", "anio", "serie", "placas", "descripcion", "condicion_inicial", "condicion_actual", "estaus_actividad", "baja", "propietario_idpropietario", "permiso_idpermiso", "fecha_asigancion_permiso", "chofer_idchofer", "created_by");
+    
+        $result = $db->insertIntoTable($r, $column_nombres, $tabble_nombre);
+    
+        if ($result != NULL) {
+            $response["status"] = "success";
+            $response["message"] = "Vehiculo agregado correctamente";
+            echoResponse(200, $response);
+        } else {
+            $response["status"] = "error";
+            $response["message"] = "Ha ocurrido un error al tratar de agregar el Vehiculo";
+            echoResponse(201, $response);
+        }    
 });
 
-$app->put('/putTaller/:id', function($id) use($app) {
+$app->put('/putVehiculo/:id', function($id) use($app) {
     $request = json_decode($app->request->getBody());
     $response = array();
     $db = new DbHandler();
 
-    $response = $db->put("taller", array("idTaller"=>$id), $request->data);
+    $response = $db->put("vehiculo", array("idvehiculo"=>$id), $request->data);
     if ($response['data'] != NULL) {
         $response["status"] = "success";
         $response["message"] = "Información modificada correctamente";
@@ -78,11 +78,11 @@ $app->put('/putTaller/:id', function($id) use($app) {
     }
 });
 
-$app->delete('/deleteTaller/:id', function($id) {
+$app->delete('/deleteVehiculo/:id', function($id) {
     $response = array();
     $db = new DbHandler();
 
-    $response = $db->delete("taller", array("idTaller"=>$id));
+    $response = $db->deleteWhere("vehiculo", array("idvehiculo"=>$id));
     if ($response['data'] != NULL) {
         $response["status"] = "success";
         $response["message"] = "Información eliminada correctamente";
