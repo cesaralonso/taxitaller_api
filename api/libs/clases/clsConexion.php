@@ -7,18 +7,18 @@ class Conexion
 	private $db_pass;
 
     public function __construct($idMem=null)
-    {
+    {/*
 		$this->db_host = "localhost";
 		$this->db_name = "cesarweb_taxytaller";
 		$this->db_user = "cesarweb_taxy";
 		$this->db_pass = "+D7MKHzsdTri";	
-	
-		/*
+		*/
+		
 		$this->db_host = "localhost";
-		$this->db_name = "tiempocompartido";
+		$this->db_name = "taxitaller";
 		$this->db_user = "root";
 		$this->db_pass = "";
-			*/
+		
 		$this->conectar($this->db_host,$this->db_name,$this->db_user,$this->db_pass);
 	}
 

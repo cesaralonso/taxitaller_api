@@ -21,7 +21,7 @@ require_once 'routes/coordenadas.php';
 require_once 'routes/liquidaciones.php';
 require_once 'routes/mecanicos.php';
 require_once 'routes/orden_vehiculo_talleres.php';
-require_once 'routes/permiso.php';
+require_once 'routes/permisos.php';
 require_once 'routes/propietarios.php';
 require_once 'routes/refacciones.php';
 require_once 'routes/roles.php';

@@ -79,11 +79,11 @@ $app->put('/putChofer/:id', function($id) use($app) {
 });
 
 
-$app->deleteWhere('/deleteChofer/:id', function($id) {
+$app->delete('/deleteChofer/:id', function($id) {
     $response = array();
     $db = new DbHandler();
 
-    $response = $db->delete("taller", array("idchofer"=>$id));
+    $response = $db->deleteWhere("taller", array("idchofer"=>$id));
     if ($response['data'] != NULL) {
         $response["status"] = "success";
         $response["message"] = "Información eliminada correctamente";

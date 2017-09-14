@@ -36,12 +36,13 @@ $app->get('/getTaller/:id', function($id){
 
 $app->post('/postTaller', function () use ($app) {
 
-    if (!$_SESSION['idUser']) 
+    if (!isset($_SESSION['iduser'])) {
         exit;    
+    }
 
     $response = array();
     $r = json_decode($app->request->getBody());
-    $r->created_by = $_SESSION['idUser'];
+    $r->created_by = $_SESSION['iduser'];
 
     $db = new DbHandler();
 
